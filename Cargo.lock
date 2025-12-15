@@ -126,7 +126,7 @@ dependencies = [
  "solana-hash",
  "solana-pubkey",
  "solana-sha256-hasher",
- "solana-svm-feature-set",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -262,13 +262,13 @@ dependencies = [
  "solana-stake-program",
  "solana-storage-bigtable",
  "solana-streamer",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-type-overrides",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-status",
  "solana-unified-scheduler-pool",
  "solana-version",
@@ -381,15 +381,15 @@ dependencies = [
  "solana-slot-hashes",
  "solana-stable-layout",
  "solana-stake-interface",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-measure",
- "solana-svm-timings",
- "solana-svm-type-overrides",
+ "solana-svm-measure 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-sysvar",
  "solana-sysvar-id",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "static_assertions",
  "test-case",
  "thiserror 2.0.16",
@@ -435,7 +435,7 @@ dependencies = [
  "solana-short-vec",
  "solana-signature",
  "solana-signer",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-transaction",
 ]
@@ -7052,12 +7052,12 @@ dependencies = [
  "solana-slot-history",
  "solana-stake-program",
  "solana-svm",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-sysvar",
  "solana-time-utils",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-vote-program",
  "spl-generic-token",
@@ -7181,7 +7181,7 @@ dependencies = [
  "solana-system-interface",
  "solana-sysvar",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "tarpc",
  "thiserror 2.0.16",
@@ -7203,7 +7203,7 @@ dependencies = [
  "solana-pubkey",
  "solana-signature",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "tarpc",
 ]
@@ -7446,13 +7446,13 @@ dependencies = [
  "solana-sbpf",
  "solana-sdk-ids",
  "solana-slot-hashes",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-measure",
- "solana-svm-type-overrides",
+ "solana-svm-measure 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "static_assertions",
  "test-case",
 ]
@@ -7777,7 +7777,7 @@ dependencies = [
  "solana-stake-interface",
  "solana-system-interface",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-transaction-status",
  "solana-transaction-status-client-types",
@@ -7955,7 +7955,7 @@ dependencies = [
  "solana-sdk-ids",
  "solana-signer",
  "solana-stake-interface",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-transaction",
  "solana-transaction-error",
@@ -7992,7 +7992,7 @@ dependencies = [
  "solana-compute-budget-program",
  "solana-message",
  "solana-sdk-ids",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -8155,8 +8155,8 @@ dependencies = [
  "solana-stake-program",
  "solana-streamer",
  "solana-svm",
- "solana-svm-timings",
- "solana-svm-transaction",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-system-program",
  "solana-system-transaction",
@@ -8225,7 +8225,7 @@ dependencies = [
  "solana-sdk-ids",
  "solana-signature",
  "solana-signer",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-system-program",
  "solana-system-transaction",
@@ -8553,7 +8553,7 @@ version = "3.0.6"
 dependencies = [
  "agave-feature-set",
  "solana-fee-structure",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -9077,13 +9077,13 @@ dependencies = [
  "solana-storage-proto",
  "solana-streamer",
  "solana-svm",
- "solana-svm-timings",
- "solana-svm-transaction",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-system-transaction",
  "solana-time-utils",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-transaction-status",
  "solana-vote",
@@ -9166,10 +9166,10 @@ dependencies = [
  "solana-sbpf",
  "solana-sdk-ids",
  "solana-svm-log-collector",
- "solana-svm-measure",
- "solana-svm-type-overrides",
+ "solana-svm-measure 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-sysvar",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -9696,18 +9696,18 @@ dependencies = [
  "solana-signer",
  "solana-slot-hashes",
  "solana-stake-interface",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-measure",
- "solana-svm-timings",
- "solana-svm-transaction",
- "solana-svm-type-overrides",
+ "solana-svm-measure 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-sysvar",
  "solana-sysvar-id",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "test-case",
 ]
 
@@ -9763,12 +9763,12 @@ dependencies = [
  "solana-stake-program",
  "solana-svm",
  "solana-svm-log-collector",
- "solana-svm-timings",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-sysvar",
  "solana-sysvar-id",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-vote-program",
  "spl-generic-token",
@@ -9999,7 +9999,7 @@ dependencies = [
  "solana-time-utils",
  "solana-tpu-client",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-transaction-status",
  "solana-validator-exit",
@@ -10296,9 +10296,9 @@ dependencies = [
  "solana-stake-interface",
  "solana-stake-program",
  "solana-svm",
- "solana-svm-callback",
- "solana-svm-timings",
- "solana-svm-transaction",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-system-program",
  "solana-system-transaction",
@@ -10306,7 +10306,7 @@ dependencies = [
  "solana-sysvar-id",
  "solana-time-utils",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-transaction-status-client-types",
  "solana-unified-scheduler-logic",
@@ -10348,7 +10348,7 @@ dependencies = [
  "solana-sdk-ids",
  "solana-signature",
  "solana-signer",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-system-transaction",
  "solana-transaction",
@@ -10703,13 +10703,13 @@ dependencies = [
  "solana-rent",
  "solana-sdk-ids",
  "solana-stake-interface",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-type-overrides",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-sysvar",
  "solana-sysvar-id",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-vote-interface",
  "solana-vote-program",
  "test-case",
@@ -10773,7 +10773,7 @@ dependencies = [
  "solana-system-transaction",
  "solana-time-utils",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-transaction-status",
  "thiserror 2.0.16",
@@ -10800,7 +10800,7 @@ dependencies = [
  "solana-serde",
  "solana-signature",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "solana-transaction-status",
  "test-case",
@@ -10912,20 +10912,20 @@ dependencies = [
  "solana-signature",
  "solana-signer",
  "solana-svm",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-measure",
- "solana-svm-timings",
- "solana-svm-transaction",
- "solana-svm-type-overrides",
+ "solana-svm-measure 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-system-program",
  "solana-system-transaction",
  "solana-sysvar",
  "solana-sysvar-id",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "spl-generic-token",
  "spl-token-interface",
@@ -10944,8 +10944,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-svm-callback"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7d19100a1464e52d9298fd11da54ca97898553dc28a8e455ce79982b1c8cfd24"
+dependencies = [
+ "solana-account",
+ "solana-clock",
+ "solana-precompile-error",
+ "solana-pubkey",
+]
+
+[[package]]
 name = "solana-svm-feature-set"
 version = "3.0.6"
+
+[[package]]
+name = "solana-svm-feature-set"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a45cb106d92777438df2af16956ff269b2853337cc08517b4aa08784c061da30"
 
 [[package]]
 name = "solana-svm-log-collector"
@@ -10959,8 +10977,25 @@ name = "solana-svm-measure"
 version = "3.0.6"
 
 [[package]]
+name = "solana-svm-measure"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0feb11327517ca2c16b5c48df5733acae7838151b2ce298a630d2a37b426f2e2"
+
+[[package]]
 name = "solana-svm-timings"
 version = "3.0.6"
+dependencies = [
+ "eager",
+ "enum-iterator",
+ "solana-pubkey",
+]
+
+[[package]]
+name = "solana-svm-timings"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "20a352d6a8bb10bc421e99e92bcc2c4468b8125506a1c9a220a61f042f0884a6"
 dependencies = [
  "eager",
  "enum-iterator",
@@ -10984,10 +11019,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-svm-transaction"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "293c9195ccede64f492d9c7c068656cc0008889bdb915c0e68d5d93f7503c687"
+dependencies = [
+ "solana-hash",
+ "solana-message",
+ "solana-pubkey",
+ "solana-sdk-ids",
+ "solana-signature",
+ "solana-transaction",
+]
+
+[[package]]
 name = "solana-svm-type-overrides"
 version = "3.0.6"
 dependencies = [
  "futures 0.3.31",
+ "rand 0.8.5",
+ "shuttle",
+]
+
+[[package]]
+name = "solana-svm-type-overrides"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4e941f4f308171b6a85d5eba025eba9730de8cd082fae8bf41113031dec509f8"
+dependencies = [
  "rand 0.8.5",
  "shuttle",
 ]
@@ -11032,13 +11091,13 @@ dependencies = [
  "solana-rent",
  "solana-sdk-ids",
  "solana-sha256-hasher",
- "solana-svm-callback",
- "solana-svm-feature-set",
+ "solana-svm-callback 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "solana-svm-feature-set 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-svm-log-collector",
- "solana-svm-type-overrides",
+ "solana-svm-type-overrides 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-interface",
  "solana-sysvar",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -11354,8 +11413,27 @@ dependencies = [
  "solana-sdk-ids",
  "solana-signature",
  "solana-system-interface",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6",
  "static_assertions",
+]
+
+[[package]]
+name = "solana-transaction-context"
+version = "3.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "917fe382dafb8f73cf35a39638a342b6b3321bb55157f1ea517d709628b17567"
+dependencies = [
+ "bincode",
+ "qualifier_attr",
+ "serde",
+ "serde_derive",
+ "solana-account",
+ "solana-instruction",
+ "solana-instructions-sysvar",
+ "solana-pubkey",
+ "solana-rent",
+ "solana-sbpf",
+ "solana-sdk-ids",
 ]
 
 [[package]]
@@ -11490,7 +11568,7 @@ dependencies = [
  "solana-reward-info",
  "solana-signature",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction-error",
  "test-case",
  "thiserror 2.0.16",
@@ -11614,7 +11692,7 @@ dependencies = [
  "solana-runtime",
  "solana-runtime-transaction",
  "solana-svm",
- "solana-svm-timings",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-system-transaction",
  "solana-transaction",
  "solana-transaction-error",
@@ -11729,7 +11807,7 @@ dependencies = [
  "solana-sha256-hasher",
  "solana-signature",
  "solana-signer",
- "solana-svm-transaction",
+ "solana-svm-transaction 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-transaction",
  "solana-vote-interface",
  "static_assertions",
@@ -11799,7 +11877,7 @@ dependencies = [
  "solana-signer",
  "solana-slot-hashes",
  "solana-transaction",
- "solana-transaction-context",
+ "solana-transaction-context 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-vote-interface",
  "test-case",
  "thiserror 2.0.16",
@@ -11833,7 +11911,7 @@ dependencies = [
  "solana-shred-version",
  "solana-signer",
  "solana-streamer",
- "solana-svm-timings",
+ "solana-svm-timings 3.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-time-utils",
  "solana-vote",
  "solana-vote-interface",
