@@ -17,3 +17,4 @@ agave-unstable-api = []
 
 [dependencies]
 log = { workspace = true }
+seer-core = { path = "../../seer/seer-core/" }
