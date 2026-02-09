@@ -32,6 +32,10 @@ impl Default for LogCollector {
 
 impl LogCollector {
     pub fn log(&mut self, message: &str) {
+        seer_core::get(|seer| {
+            seer.log(message);
+        });
+
         let Some(limit) = self.bytes_limit else {
             self.messages.push(message.to_string());
             return;
@@ -45,7 +49,6 @@ impl LogCollector {
             }
         } else {
             self.bytes_written = bytes_written;
-            seer_core::get().log(message);
             self.messages.push(message.to_string());
         }
     }

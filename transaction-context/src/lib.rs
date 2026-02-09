@@ -11,6 +11,7 @@
 #![deny(clippy::indexing_slicing)]
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
+use seer_interface::GuestStepMirror;
 use {
     crate::transaction_accounts::{AccountRefMut, KeyedAccountSharedData, TransactionAccounts},
     solana_account::{AccountSharedData, ReadableAccount},
@@ -127,7 +128,36 @@ pub struct TransactionContext<'ix_data> {
     rent: Rent,
 }
 
+<<<<<<< HEAD
 impl<'ix_data> TransactionContext<'ix_data> {
+=======
+impl GuestStepMirror for TransactionContext {
+    fn get_account_keys(&self) -> Vec<Pubkey> {
+        self.account_keys.to_vec()
+    }
+
+    fn get_account_at_index(&self, index: usize) -> Option<AccountSharedData> {
+        self.accounts.accounts.get(index)?.borrow().clone().into()
+    }
+
+    fn get_accounts(&self) -> Vec<(Pubkey, AccountSharedData)> {
+        let account_keys = self.get_account_keys();
+        let mut accounts = Vec::new();
+
+        for i in 0..account_keys.len()  {
+            if let Some(account) = self.get_account_at_index(i) {
+                accounts.push((account_keys[i], account));
+            } else {
+                panic!("account_keys length {} is greater than accounts length {}", account_keys.len(), accounts.len());
+            }
+        }
+
+        accounts
+    }
+}
+
+impl TransactionContext {
+>>>>>>> 9d833b20c9 (Update Seer hooks to latest version)
     /// Constructs a new TransactionContext
     #[cfg(not(target_os = "solana"))]
     pub fn new(
