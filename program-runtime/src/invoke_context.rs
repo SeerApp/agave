@@ -8,6 +8,7 @@ use {
         stable_log,
         sysvar_cache::SysvarCache,
     },
+    seer_interface::GuestStepMirror,
     solana_account::{create_account_shared_data_for_test, AccountSharedData},
     solana_clock::Slot,
     solana_epoch_schedule::EpochSchedule,
@@ -558,7 +559,12 @@ impl<'a> InvokeContext<'a> {
 
         let program_id = *instruction_context.get_program_key()?;
         let program = Pubkey::from(program_id);
-        seer_core::get().start_program(program);
+
+        seer_core::get(|seer| {
+            unsafe {
+                seer.start_program(program, self.transaction_context as &dyn GuestStepMirror)
+            };
+        });
 
         self.transaction_context
             .set_return_data(program_id, Vec::new())?;
@@ -586,7 +592,9 @@ impl<'a> InvokeContext<'a> {
         let result = match vm.program_result {
             ProgramResult::Ok(_) => {
                 stable_log::program_success(&logger, &program_id);
-                seer_core::get().end_program(program, None);
+                seer_core::get(|seer| {
+                    seer.end_program(program, None);
+                });
                 Ok(())
             }
             ProgramResult::Err(ref err) => {
@@ -594,16 +602,25 @@ impl<'a> InvokeContext<'a> {
                     if let Some(instruction_err) = syscall_error.downcast_ref::<InstructionError>()
                     {
                         stable_log::program_failure(&logger, &program_id, instruction_err);
-                        seer_core::get().end_program(program, Some(instruction_err.clone()));
+                        seer_core::get(|seer| {
+                            seer.end_program(program, Some(instruction_err.clone()));
+                        });
                         Err(instruction_err.clone())
                     } else {
                         stable_log::program_failure(&logger, &program_id, syscall_error);
-                        seer_core::get().end_program(program, Some(InstructionError::ProgramFailedToComplete));
+                        seer_core::get(|seer| {
+                            seer.end_program(
+                                program,
+                                Some(InstructionError::ProgramFailedToComplete),
+                            );
+                        });
                         Err(InstructionError::ProgramFailedToComplete)
                     }
                 } else {
                     stable_log::program_failure(&logger, &program_id, err);
-                    seer_core::get().end_program(program, Some(InstructionError::ProgramFailedToComplete));
+                    seer_core::get(|seer| {
+                        seer.end_program(program, Some(InstructionError::ProgramFailedToComplete));
+                    });
                     Err(InstructionError::ProgramFailedToComplete)
                 }
             }
