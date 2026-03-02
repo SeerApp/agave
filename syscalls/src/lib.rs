@@ -1,3 +1,5 @@
+#![allow(deprecated)]
+
 pub use self::{
     cpi::{SyscallInvokeSignedC, SyscallInvokeSignedRust},
     logging::{
