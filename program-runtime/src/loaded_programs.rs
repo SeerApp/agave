@@ -387,16 +387,16 @@ impl ProgramCacheEntry {
             }
         }
 
-        #[cfg(all(not(target_os = "windows"), target_arch = "x86_64"))]
-        {
-            #[cfg(feature = "metrics")]
-            let jit_compile_time = Measure::start("jit_compile_time");
-            executable.jit_compile()?;
-            #[cfg(feature = "metrics")]
-            {
-                metrics.jit_compile_us = jit_compile_time.end_as_us();
-            }
-        }
+        // #[cfg(all(not(target_os = "windows"), target_arch = "x86_64"))]
+        // {
+        //     #[cfg(feature = "metrics")]
+        //     let jit_compile_time = Measure::start("jit_compile_time");
+        //     executable.jit_compile()?;
+        //     #[cfg(feature = "metrics")]
+        //     {
+        //         metrics.jit_compile_us = jit_compile_time.end_as_us();
+        //     }
+        // }
 
         Ok(Self {
             deployment_slot,
