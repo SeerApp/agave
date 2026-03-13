@@ -137,18 +137,18 @@ impl GuestStepMirror for TransactionContext {
     }
 
     fn get_account_at_index(&self, index: usize) -> Option<AccountSharedData> {
-        self.accounts.accounts.get(index)?.borrow().clone().into()
+        self.accounts.accounts.get(index)?.try_borrow().ok()?.clone().into()
     }
 
     fn get_accounts(&self) -> Vec<(Pubkey, AccountSharedData)> {
         let account_keys = self.get_account_keys();
         let mut accounts = Vec::new();
 
-        for i in 0..account_keys.len()  {
+        for i in 0..account_keys.len() {
             if let Some(account) = self.get_account_at_index(i) {
                 accounts.push((account_keys[i], account));
             } else {
-                panic!("account_keys length {} is greater than accounts length {}", account_keys.len(), accounts.len());
+                return Vec::new();
             }
         }
 
