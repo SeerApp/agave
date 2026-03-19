@@ -128,16 +128,13 @@ pub struct TransactionContext<'ix_data> {
     rent: Rent,
 }
 
-<<<<<<< HEAD
-impl<'ix_data> TransactionContext<'ix_data> {
-=======
-impl GuestStepMirror for TransactionContext {
+impl<'ix_data> GuestStepMirror for TransactionContext<'ix_data> {
     fn get_account_keys(&self) -> Vec<Pubkey> {
-        self.account_keys.to_vec()
+        self.accounts.account_keys_iter().cloned().collect()
     }
 
     fn get_account_at_index(&self, index: usize) -> Option<AccountSharedData> {
-        self.accounts.accounts.get(index)?.try_borrow().ok()?.clone().into()
+        self.accounts.get_account_at_index(index)
     }
 
     fn get_accounts(&self) -> Vec<(Pubkey, AccountSharedData)> {
@@ -156,8 +153,7 @@ impl GuestStepMirror for TransactionContext {
     }
 }
 
-impl TransactionContext {
->>>>>>> 9d833b20c9 (Update Seer hooks to latest version)
+impl<'ix_data> TransactionContext<'ix_data> {
     /// Constructs a new TransactionContext
     #[cfg(not(target_os = "solana"))]
     pub fn new(

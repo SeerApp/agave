@@ -323,11 +323,8 @@ pub fn create_program_runtime_environment_v1<'a, 'ix_data>(
         enable_stack_frame_gaps: true,
         instruction_meter_checkpoint_distance: 10000,
         enable_instruction_meter: true,
-        enable_register_tracing: debugging_features,
         enable_symbol_and_section_labels: debugging_features,
         reject_broken_elfs: reject_deployment_of_broken_elfs,
-        noop_instruction_rate: 256,
-        sanitize_user_provided_values: true,
         enabled_sbpf_versions: min_sbpf_version..=max_sbpf_version,
         optimize_rodata: false,
         aligned_memory_mapping: !feature_set.stricter_abi_and_runtime_constraints,
@@ -524,11 +521,8 @@ pub fn create_program_runtime_environment_v2<'a, 'ix_data>(
         enable_stack_frame_gaps: false,
         instruction_meter_checkpoint_distance: 10000,
         enable_instruction_meter: true,
-        enable_register_tracing: debugging_features,
         enable_symbol_and_section_labels: debugging_features,
         reject_broken_elfs: true,
-        noop_instruction_rate: 256,
-        sanitize_user_provided_values: true,
         enabled_sbpf_versions: SBPFVersion::Reserved..=SBPFVersion::Reserved,
         optimize_rodata: true,
         aligned_memory_mapping: true,
@@ -1570,8 +1564,8 @@ declare_builtin_function!(
         use solana_bn254::versioned::{
             alt_bn128_versioned_g1_addition, alt_bn128_versioned_g1_multiplication,
             alt_bn128_versioned_pairing, Endianness, VersionedG1Addition,
-            VersionedG1Multiplication, VersionedPairing, ALT_BN128_ADDITION_OUTPUT_SIZE,
-            ALT_BN128_G1_ADD_BE, ALT_BN128_G1_MUL_BE, ALT_BN128_MULTIPLICATION_OUTPUT_SIZE,
+            VersionedG1Multiplication, VersionedPairing, ALT_BN128_G1_POINT_SIZE,
+            ALT_BN128_G1_ADD_BE, ALT_BN128_G1_MUL_BE,
             ALT_BN128_PAIRING_BE, ALT_BN128_PAIRING_ELEMENT_SIZE,
             ALT_BN128_PAIRING_OUTPUT_SIZE,
         };
@@ -1580,11 +1574,11 @@ declare_builtin_function!(
         let (cost, output): (u64, usize) = match group_op {
             ALT_BN128_G1_ADD_BE => (
                 execution_cost.alt_bn128_addition_cost,
-                ALT_BN128_ADDITION_OUTPUT_SIZE,
+                ALT_BN128_G1_POINT_SIZE,
             ),
             ALT_BN128_G1_MUL_BE => (
                 execution_cost.alt_bn128_multiplication_cost,
-                ALT_BN128_MULTIPLICATION_OUTPUT_SIZE,
+                ALT_BN128_G1_POINT_SIZE,
             ),
             ALT_BN128_PAIRING_BE => {
                 let ele_len = input_size
@@ -1835,8 +1829,8 @@ declare_builtin_function!(
         use solana_bn254::{
             prelude::{ALT_BN128_G1_POINT_SIZE, ALT_BN128_G2_POINT_SIZE},
             compression::prelude::{
-                alt_bn128_g1_compress, alt_bn128_g1_decompress, alt_bn128_g2_compress,
-                alt_bn128_g2_decompress, ALT_BN128_G1_COMPRESS_BE, ALT_BN128_G1_DECOMPRESS_BE,
+                alt_bn128_g1_compress_be, alt_bn128_g1_decompress_be, alt_bn128_g2_compress_be,
+                alt_bn128_g2_decompress_be, ALT_BN128_G1_COMPRESS_BE, ALT_BN128_G1_DECOMPRESS_BE,
                 ALT_BN128_G2_COMPRESS_BE, ALT_BN128_G2_DECOMPRESS_BE, ALT_BN128_G1_COMPRESSED_POINT_SIZE,
                 ALT_BN128_G2_COMPRESSED_POINT_SIZE,
             }
@@ -1879,25 +1873,25 @@ declare_builtin_function!(
 
         match op {
             ALT_BN128_G1_COMPRESS_BE => {
-                let Ok(result_point) = alt_bn128_g1_compress(input) else {
+                let Ok(result_point) = alt_bn128_g1_compress_be(input) else {
                     return Ok(1);
                 };
                 call_result.copy_from_slice(&result_point);
             }
             ALT_BN128_G1_DECOMPRESS_BE => {
-                let Ok(result_point) = alt_bn128_g1_decompress(input) else {
+                let Ok(result_point) = alt_bn128_g1_decompress_be(input) else {
                     return Ok(1);
                 };
                 call_result.copy_from_slice(&result_point);
             }
             ALT_BN128_G2_COMPRESS_BE => {
-                let Ok(result_point) = alt_bn128_g2_compress(input) else {
+                let Ok(result_point) = alt_bn128_g2_compress_be(input) else {
                     return Ok(1);
                 };
                 call_result.copy_from_slice(&result_point);
             }
             ALT_BN128_G2_DECOMPRESS_BE => {
-                let Ok(result_point) = alt_bn128_g2_decompress(input) else {
+                let Ok(result_point) = alt_bn128_g2_decompress_be(input) else {
                     return Ok(1);
                 };
                 call_result.copy_from_slice(&result_point);
