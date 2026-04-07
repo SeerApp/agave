@@ -547,8 +547,27 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         let program = Pubkey::from(program_id);
 
         seer_core::get(|seer| {
+            let instruction_accounts = instruction_context.instruction_accounts();
+            let mut accounts = Vec::new();
+
+            for ia in instruction_accounts {
+                let key = self
+                    .transaction_context
+                    .get_key_of_account_at_index(ia.index_in_transaction)
+                    .ok()
+                    .unwrap()
+                    .clone();
+
+                accounts.push(key);
+            }
+
             unsafe {
-                seer.start_program(program, self.transaction_context as &dyn GuestStepMirror)
+                seer.start_program(
+                    accounts,
+                    instruction_context.get_instruction_data().to_vec(),
+                    program,
+                    self.transaction_context as &dyn GuestStepMirror,
+                )
             };
         });
 
