@@ -11,7 +11,7 @@
 #![deny(clippy::indexing_slicing)]
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
-use seer_interface::GuestStepMirror;
+use seer_interface::GuestAccountBackdoor;
 use {
     crate::transaction_accounts::{AccountRefMut, KeyedAccountSharedData, TransactionAccounts},
     solana_account::{AccountSharedData, ReadableAccount},
@@ -128,7 +128,7 @@ pub struct TransactionContext<'ix_data> {
     rent: Rent,
 }
 
-impl<'ix_data> GuestStepMirror for TransactionContext<'ix_data> {
+impl<'ix_data> GuestAccountBackdoor for TransactionContext<'ix_data> {
     fn get_account_keys(&self) -> Vec<Pubkey> {
         self.accounts.account_keys_iter().cloned().collect()
     }

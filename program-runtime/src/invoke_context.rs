@@ -8,7 +8,7 @@ use {
         stable_log,
         sysvar_cache::SysvarCache,
     },
-    seer_interface::GuestStepMirror,
+    seer_interface::GuestAccountBackdoor,
     solana_account::{create_account_shared_data_for_test, AccountSharedData},
     solana_epoch_schedule::EpochSchedule,
     solana_hash::Hash,
@@ -566,7 +566,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
                     accounts,
                     instruction_context.get_instruction_data().to_vec(),
                     program,
-                    self.transaction_context as &dyn GuestStepMirror,
+                    self.transaction_context as &dyn GuestAccountBackdoor,
                 )
             };
         });

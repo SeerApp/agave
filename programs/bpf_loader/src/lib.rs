@@ -39,6 +39,7 @@ use {
         error::{EbpfError, ProgramResult},
         memory_region::{AccessType, MemoryMapping, MemoryRegion},
         program::BuiltinProgram,
+        seer_account_read::AccountVmLayout,
         verifier::RequisiteVerifier,
         vm::{ContextObject, EbpfVm},
     },
@@ -1418,6 +1419,47 @@ fn common_extend_program(
     Ok(())
 }
 
+fn try_prepare_account_read_trace(
+    instruction_context: &InstructionContext<'_, '_>,
+    accounts_metadata: &[SerializedAccountMetadata],
+    is_loader_deprecated: bool,
+) -> Option<(Vec<AccountVmLayout>, Vec<Pubkey>, u64)> {
+    let num = instruction_context.get_number_of_instruction_accounts() as usize;
+    if accounts_metadata.len() != num {
+        return None;
+    }
+    let mut keys = Vec::with_capacity(num);
+    for i in 0..num {
+        let ixa = i as IndexOfAccount;
+        let key = instruction_context
+            .get_key_of_instruction_account(ixa)
+            .ok()?
+            .to_owned();
+        keys.push(key);
+    }
+    let lite: Vec<AccountVmLayout> = accounts_metadata
+        .iter()
+        .map(|m| AccountVmLayout {
+            original_data_len: m.original_data_len,
+            vm_data_addr: m.vm_data_addr,
+            vm_key_addr: m.vm_key_addr,
+            vm_lamports_addr: m.vm_lamports_addr,
+            vm_owner_addr: m.vm_owner_addr,
+        })
+        .collect();
+    let data_growth = if is_loader_deprecated {
+        0u64
+    } else {
+        MAX_PERMITTED_DATA_INCREASE as u64
+    };
+
+    Some((
+        lite,
+        keys, 
+        data_growth,
+    ))
+}
+
 fn common_close_account(
     authority_address: &Option<Pubkey>,
     instruction_context: &InstructionContext,
@@ -1503,6 +1545,12 @@ fn execute<'a, 'b: 'a>(
         })
         .collect::<Vec<_>>();
 
+    let mut account_read_trace_prep = try_prepare_account_read_trace(
+        &instruction_context,
+        &accounts_metadata,
+        is_loader_deprecated,
+    );
+
     let mut create_vm_time = Measure::start("create_vm");
     let execution_result = {
         let compute_meter_prev = invoke_context.get_remaining();
@@ -1523,6 +1571,16 @@ fn execute<'a, 'b: 'a>(
         if provide_instruction_data_offset_in_vm_r2 {
             vm.registers[2] = instruction_data_offset as u64;
         }
+
+        let _account_read_trace_guard = account_read_trace_prep.take().map(|(
+            lite,
+            keys, 
+            data_growth,
+        )| {
+            solana_sbpf::seer_account_read::get(|seer| {
+                seer.capture_vm_layout(&lite, keys, data_growth);
+            });
+        });
         let (compute_units_consumed, result) = vm.execute_program(executable, !use_jit);
         // let register_trace = std::mem::take(&mut vm.register_trace);
         MEMORY_POOL.with_borrow_mut(|memory_pool| {
