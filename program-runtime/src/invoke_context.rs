@@ -20,6 +20,7 @@ use {
         stable_log,
         sysvar_cache::SysvarCache,
     },
+    seer_interface::GuestAccountBackdoor,
     solana_hash::Hash,
     solana_instruction::{Instruction, error::InstructionError},
     solana_pubkey::Pubkey,
@@ -602,6 +603,26 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         .ok_or(InstructionError::UnsupportedProgramId)?;
 
         let program_id = *instruction_context.get_program_key()?;
+        seer_core::get(|seer| {
+            let instruction_accounts = instruction_context.instruction_accounts();
+            let mut accounts = Vec::new();
+            for ia in instruction_accounts {
+                let key = *self
+                    .transaction_context
+                    .get_key_of_account_at_index(ia.index_in_transaction)
+                    .ok()
+                    .unwrap();
+                accounts.push(key);
+            }
+            unsafe {
+                seer.start_program(
+                    accounts,
+                    instruction_context.get_instruction_data().to_vec(),
+                    program_id,
+                    self.transaction_context as &dyn GuestAccountBackdoor,
+                )
+            };
+        });
         self.transaction_context
             .set_return_data(program_id, Vec::new())?;
         let logger = self.get_log_collector();
@@ -635,6 +656,9 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         let result = match vm.program_result {
             ProgramResult::Ok(_) => {
                 stable_log::program_success(&logger, &program_id);
+                seer_core::get(|seer| {
+                    seer.end_program(program_id, None);
+                });
                 Ok(())
             }
             ProgramResult::Err(ref err) => {
@@ -642,13 +666,25 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
                     if let Some(instruction_err) = syscall_error.downcast_ref::<InstructionError>()
                     {
                         stable_log::program_failure(&logger, &program_id, instruction_err);
+                        seer_core::get(|seer| {
+                            seer.end_program(program_id, Some(instruction_err.clone()));
+                        });
                         Err(instruction_err.clone())
                     } else {
                         stable_log::program_failure(&logger, &program_id, syscall_error);
+                        seer_core::get(|seer| {
+                            seer.end_program(
+                                program_id,
+                                Some(InstructionError::ProgramFailedToComplete),
+                            );
+                        });
                         Err(InstructionError::ProgramFailedToComplete)
                     }
                 } else {
                     stable_log::program_failure(&logger, &program_id, err);
+                    seer_core::get(|seer| {
+                        seer.end_program(program_id, Some(InstructionError::ProgramFailedToComplete));
+                    });
                     Err(InstructionError::ProgramFailedToComplete)
                 }
             }

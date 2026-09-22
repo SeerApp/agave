@@ -10,6 +10,7 @@ use {
             GUEST_REGION_SIZE, RETURN_DATA_SCRATCHPAD,
         },
     },
+    seer_interface::GuestAccountBackdoor,
     solana_account::{AccountSharedData, ReadableAccount, WritableAccount},
     solana_instruction::error::InstructionError,
     solana_instructions_sysvar as instructions,
@@ -78,6 +79,30 @@ pub struct TransactionContext<'ix_data> {
     /// Each entry in `instruction_data` represents the data for instruction at the corresponding
     /// index.
     instruction_data: Vec<Cow<'ix_data, [u8]>>,
+}
+
+#[cfg(not(any(target_arch = "bpf", target_arch = "sbf")))]
+impl<'ix_data> GuestAccountBackdoor for TransactionContext<'ix_data> {
+    fn get_account_keys(&self) -> Vec<Pubkey> {
+        self.accounts.account_keys_iter().cloned().collect()
+    }
+
+    fn get_account_at_index(&self, index: usize) -> Option<AccountSharedData> {
+        self.accounts.get_account_at_index(index)
+    }
+
+    fn get_accounts(&self) -> Vec<(Pubkey, AccountSharedData)> {
+        let account_keys = self.get_account_keys();
+        let mut accounts = Vec::new();
+        for (i, key) in account_keys.iter().enumerate() {
+            if let Some(account) = self.get_account_at_index(i) {
+                accounts.push((*key, account));
+            } else {
+                return Vec::new();
+            }
+        }
+        accounts
+    }
 }
 
 #[cfg(not(any(target_arch = "bpf", target_arch = "sbf")))]

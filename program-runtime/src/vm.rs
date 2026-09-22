@@ -274,7 +274,8 @@ pub fn execute<'a, 'b: 'a>(
     };
 
     let execution_result = {
-        let mut execution_mode = ExecutionMode::PreferJit;
+        // ponytail: interpreter only — Seer register traces come from sbpf step hooks.
+        let mut execution_mode = ExecutionMode::Interpreted;
 
         #[cfg(feature = "sbpf-debugger")]
         if invoke_context.debug_port.is_some() {

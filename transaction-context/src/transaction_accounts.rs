@@ -491,6 +491,21 @@ impl TransactionAccounts {
                 .map(|item| &(*item.get()).key)
         }
     }
+
+    pub fn get_account_at_index(&self, index: usize) -> Option<AccountSharedData> {
+        // SAFETY: index is in-range; we only read shared/private fields.
+        unsafe {
+            let svm_account = &*self.shared_account_fields.get(index)?.get();
+            let private_fields = &*self.private_account_fields.get(index)?.get();
+            Some(AccountSharedData::create_from_existing_shared_data(
+                svm_account.lamports,
+                private_fields.payload.clone(),
+                svm_account.owner,
+                private_fields.executable,
+                private_fields.rent_epoch,
+            ))
+        }
+    }
 }
 
 #[derive(Default, Debug, Clone)]

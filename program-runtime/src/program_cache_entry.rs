@@ -262,17 +262,19 @@ impl ProgramCacheEntry {
             }
         }
 
-        #[cfg(all(not(target_os = "windows"), target_arch = "x86_64"))]
-        {
-            let jit_compile_time = solana_svm_measure::measure::Measure::start("jit_compile_time");
-            executable.jit_compile()?;
-            let jit_compile_time = jit_compile_time.end_as_us();
-            entry_stats.jit_compiled(jit_compile_time);
-            #[cfg(feature = "metrics")]
-            {
-                metrics.jit_compile_us = jit_compile_time;
-            }
-        }
+        // ponytail: skip JIT so Seer always traces via the interpreter. Upgrade: JIT + a
+        // parallel register-trace hook.
+        // #[cfg(all(not(target_os = "windows"), target_arch = "x86_64"))]
+        // {
+        //     let jit_compile_time = solana_svm_measure::measure::Measure::start("jit_compile_time");
+        //     executable.jit_compile()?;
+        //     let jit_compile_time = jit_compile_time.end_as_us();
+        //     entry_stats.jit_compiled(jit_compile_time);
+        //     #[cfg(feature = "metrics")]
+        //     {
+        //         metrics.jit_compile_us = jit_compile_time;
+        //     }
+        // }
 
         Ok(Self {
             deployment_slot,

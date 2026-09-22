@@ -77,6 +77,8 @@ solana-sysvar-id = { workspace = true }
 solana-transaction-context = { workspace = true }
 thiserror = { workspace = true }
 wincode = { workspace = true }
+seer-core = { path = "../../seer/seer-core/", default-features = false }
+seer-interface = { path = "../../seer/seer-interface/" }
 
 [dev-dependencies]
 assert_matches = { workspace = true }
