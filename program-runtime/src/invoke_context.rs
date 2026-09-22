@@ -603,7 +603,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         .ok_or(InstructionError::UnsupportedProgramId)?;
 
         let program_id = *instruction_context.get_program_key()?;
-        seer_core::get(|seer| {
+        seer_interface::hooks().map(|h| {
             let instruction_accounts = instruction_context.instruction_accounts();
             let mut accounts = Vec::new();
             for ia in instruction_accounts {
@@ -615,7 +615,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
                 accounts.push(key);
             }
             unsafe {
-                seer.start_program(
+                (h.start_program)(
                     accounts,
                     instruction_context.get_instruction_data().to_vec(),
                     program_id,
@@ -656,9 +656,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         let result = match vm.program_result {
             ProgramResult::Ok(_) => {
                 stable_log::program_success(&logger, &program_id);
-                seer_core::get(|seer| {
-                    seer.end_program(program_id, None);
-                });
+                seer_interface::hooks().map(|h| (h.end_program)(program_id, None));
                 Ok(())
             }
             ProgramResult::Err(ref err) => {
@@ -666,24 +664,24 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
                     if let Some(instruction_err) = syscall_error.downcast_ref::<InstructionError>()
                     {
                         stable_log::program_failure(&logger, &program_id, instruction_err);
-                        seer_core::get(|seer| {
-                            seer.end_program(program_id, Some(instruction_err.clone()));
+                        seer_interface::hooks().map(|h| {
+                            (h.end_program)(program_id, Some(instruction_err.clone()))
                         });
                         Err(instruction_err.clone())
                     } else {
                         stable_log::program_failure(&logger, &program_id, syscall_error);
-                        seer_core::get(|seer| {
-                            seer.end_program(
+                        seer_interface::hooks().map(|h| {
+                            (h.end_program)(
                                 program_id,
                                 Some(InstructionError::ProgramFailedToComplete),
-                            );
+                            )
                         });
                         Err(InstructionError::ProgramFailedToComplete)
                     }
                 } else {
                     stable_log::program_failure(&logger, &program_id, err);
-                    seer_core::get(|seer| {
-                        seer.end_program(program_id, Some(InstructionError::ProgramFailedToComplete));
+                    seer_interface::hooks().map(|h| {
+                        (h.end_program)(program_id, Some(InstructionError::ProgramFailedToComplete))
                     });
                     Err(InstructionError::ProgramFailedToComplete)
                 }
