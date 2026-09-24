@@ -19,7 +19,7 @@ agave-unstable-api = []
 
 [dependencies]
 log = { workspace = true }
-seer-interface = { path = "../../seer/seer-interface/" }
+hooks = { path = "../../seer/hooks/" }
 
 [lints]
 workspace = true

@@ -24,7 +24,7 @@ impl Default for LogCollector {
 
 impl LogCollector {
     pub fn log(&mut self, message: &str) {
-        seer_interface::hooks().map(|h| (h.log)(message));
+        hooks::get().map(|h| (h.log)(message));
 
         let Some(limit) = self.bytes_limit else {
             self.messages.push(message.to_string());

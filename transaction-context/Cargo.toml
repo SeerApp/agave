@@ -27,7 +27,7 @@ solana-instruction = { workspace = true, features = ["std"] }
 solana-instructions-sysvar = { workspace = true }
 solana-pubkey = { workspace = true }
 wincode = { workspace = true, optional = true }
-seer-interface = { path = "../../seer/seer-interface/" }
+hooks = { path = "../../seer/hooks/" }
 
 [target.'cfg(not(any(target_arch = "sbf", target_arch = "bpf")))'.dependencies]
 bincode = { workspace = true, optional = true }

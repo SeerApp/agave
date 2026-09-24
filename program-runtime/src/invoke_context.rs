@@ -20,7 +20,7 @@ use {
         stable_log,
         sysvar_cache::SysvarCache,
     },
-    seer_interface::GuestAccountBackdoor,
+    hooks::GuestAccountBackdoor,
     solana_hash::Hash,
     solana_instruction::{Instruction, error::InstructionError},
     solana_pubkey::Pubkey,
@@ -603,7 +603,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         .ok_or(InstructionError::UnsupportedProgramId)?;
 
         let program_id = *instruction_context.get_program_key()?;
-        seer_interface::hooks().map(|h| {
+        hooks::get().map(|h| {
             let instruction_accounts = instruction_context.instruction_accounts();
             let mut accounts = Vec::new();
             for ia in instruction_accounts {
@@ -656,7 +656,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
         let result = match vm.program_result {
             ProgramResult::Ok(_) => {
                 stable_log::program_success(&logger, &program_id);
-                seer_interface::hooks().map(|h| (h.end_program)(program_id, None));
+                hooks::get().map(|h| (h.end_program)(program_id, None));
                 Ok(())
             }
             ProgramResult::Err(ref err) => {
@@ -664,13 +664,12 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
                     if let Some(instruction_err) = syscall_error.downcast_ref::<InstructionError>()
                     {
                         stable_log::program_failure(&logger, &program_id, instruction_err);
-                        seer_interface::hooks().map(|h| {
-                            (h.end_program)(program_id, Some(instruction_err.clone()))
-                        });
+                        hooks::get()
+                            .map(|h| (h.end_program)(program_id, Some(instruction_err.clone())));
                         Err(instruction_err.clone())
                     } else {
                         stable_log::program_failure(&logger, &program_id, syscall_error);
-                        seer_interface::hooks().map(|h| {
+                        hooks::get().map(|h| {
                             (h.end_program)(
                                 program_id,
                                 Some(InstructionError::ProgramFailedToComplete),
@@ -680,7 +679,7 @@ impl<'a, 'ix_data> InvokeContext<'a, 'ix_data> {
                     }
                 } else {
                     stable_log::program_failure(&logger, &program_id, err);
-                    seer_interface::hooks().map(|h| {
+                    hooks::get().map(|h| {
                         (h.end_program)(program_id, Some(InstructionError::ProgramFailedToComplete))
                     });
                     Err(InstructionError::ProgramFailedToComplete)

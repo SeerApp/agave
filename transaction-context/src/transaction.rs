@@ -10,7 +10,7 @@ use {
             GUEST_REGION_SIZE, RETURN_DATA_SCRATCHPAD,
         },
     },
-    seer_interface::GuestAccountBackdoor,
+    hooks::GuestAccountBackdoor,
     solana_account::{AccountSharedData, ReadableAccount, WritableAccount},
     solana_instruction::error::InstructionError,
     solana_instructions_sysvar as instructions,
