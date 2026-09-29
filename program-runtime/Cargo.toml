@@ -77,7 +77,7 @@ solana-sysvar-id = { workspace = true }
 solana-transaction-context = { workspace = true }
 thiserror = { workspace = true }
 wincode = { workspace = true }
-hooks = { path = "../../seer/hooks/" }
+hooks = { git = "https://github.com/SeerApp/seer", branch = "feat/seer-cli" }
 
 [dev-dependencies]
 assert_matches = { workspace = true }

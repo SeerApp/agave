@@ -27,7 +27,7 @@ solana-instruction = { workspace = true, features = ["std"] }
 solana-instructions-sysvar = { workspace = true }
 solana-pubkey = { workspace = true }
 wincode = { workspace = true, optional = true }
-hooks = { path = "../../seer/hooks/" }
+hooks = { git = "https://github.com/SeerApp/seer", branch = "feat/seer-cli" }
 
 [target.'cfg(not(any(target_arch = "sbf", target_arch = "bpf")))'.dependencies]
 bincode = { workspace = true, optional = true }
