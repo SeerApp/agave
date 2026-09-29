@@ -19,7 +19,7 @@ agave-unstable-api = []
 
 [dependencies]
 log = { workspace = true }
-hooks = { git = "https://github.com/SeerApp/seer", branch = "feat/seer-cli" }
+hooks = { git = "https://github.com/SeerApp/seer", branch = "master" }
 
 [lints]
 workspace = true
